@@ -59,6 +59,22 @@ app.get("/notes", async (req: Request, res: Response) => {
 app.get("/notes/:noteId", async (req: Request, res: Response) => {
   const noteId = req.params.noteId;
   const notes = await Note.findById(noteId);
+  // const notes = await Note.findOne({ _id: noteId });
+
+  res.status(200).json({
+    success: true,
+    notes,
+  });
+});
+
+app.patch("/notes/:noteId", async (req: Request, res: Response) => {
+  const noteId = req.params.noteId;
+  const updatedBody = req.body;
+  const notes = await Note.findByIdAndUpdate(noteId, updatedBody, {
+    new: true,
+  });
+  // const notes = await Note.findOneAndUpdate({ _id: noteId }, updatedBody,{new: true});
+
   res.status(200).json({
     success: true,
     notes,
