@@ -1,4 +1,4 @@
-import { Note } from "../models/notes.model";
+import { Note } from "../models/notesModel";
 import express, { Request, Response } from "express";
 
 
