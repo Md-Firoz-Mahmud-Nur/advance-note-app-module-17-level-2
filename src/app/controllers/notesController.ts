@@ -5,7 +5,7 @@ import express, { Request, Response } from "express";
 export const notesRoutes = express.Router();
 
 
-notesRoutes.post("/createNote", async (req: Request, res: Response) => {
+notesRoutes.post("/create", async (req: Request, res: Response) => {
   const body = req.body;
   console.log("body", body);
   const note = await Note.create(body);
