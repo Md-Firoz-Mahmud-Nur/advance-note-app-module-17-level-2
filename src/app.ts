@@ -81,6 +81,16 @@ app.patch("/notes/:noteId", async (req: Request, res: Response) => {
   });
 });
 
+app.delete("/notes/:noteId", async (req: Request, res: Response) => {
+  const noteId = req.params.noteId;
+  const notes = await Note.findByIdAndDelete(noteId);
+
+  res.status(200).json({
+    success: true,
+    notes,
+  });
+});
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to note app!");
 });
