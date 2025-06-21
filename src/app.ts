@@ -3,18 +3,33 @@ import { model, Schema } from "mongoose";
 const app: Application = express();
 
 const noteSchema = new Schema({
-  title: String,
-  content: String,
-  publishDate: String,
+  title: { type: String, required: true, trim: true },
+  content: { type: String, default: "No content provided by user" },
+  category: {
+    type: String,
+    enum: ["personal", "work", "study", "other"],
+    default: "personal",
+  },
+  pinned: {
+    type: Boolean,
+    default: false,
+  },
+  tags: {
+    label: { type: String, required: true },
+    color: { type: String, default: "gray" },
+  },
 });
 
 const Note = model("note", noteSchema);
 
 app.post("/createNote", async (req: Request, res: Response) => {
   const myNote = new Note({
-    title: "Learning Mongoose",
-    content: "I am learning mongoose",
+    title: "Learning Express",
+    // content: "I am learning mongoose",
     publishDate: "hello publish date",
+    tags: {
+      label: "Database",
+    }
   });
 
   await myNote.save();
